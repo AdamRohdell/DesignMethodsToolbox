@@ -11,16 +11,37 @@ import {
 } from "@chakra-ui/react";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { useState } from "react";
-import InputText from "./info-texts/InputText";
-import ExperiencesText from "./info-texts/ExperiencesText";
-import ResearchText from "./info-texts/ResearchText";
-import HowText from "./info-texts/HowText";
-import OutputText from "./info-texts/OutputText";
-import WhatText from "./info-texts/WhatText";
+import { useContext, useState } from "react";
+import InputText from "./info-texts/input-text";
+import ExperiencesText from "./info-texts/experiences-text";
+import ResearchText from "./info-texts/research-text";
+import HowText from "./info-texts/how-text";
+import OutputText from "./info-texts/output-text";
+import WhatText from "./info-texts/what-text";
+import { MethodContext } from "../contexts/method-context";
 
 const MethodInput = () => {
+    const { addMethod } = useContext(MethodContext);
     const [hoverInput, setHoverInput] = useState(false);
+    const [titleInput, setTitleInput] = useState("");
+    const [inputInput, setInputInput] = useState("");
+    const [outputInput, setOutputInput] = useState("");
+    const [whatInput, setWhatInput] = useState("");
+    const [howInput, setHowInput] = useState("");
+    const [experiencesInput, setExperiencesInput] = useState("");
+    const [researchInput, setResearchInput] = useState("");
+
+    const handleSubmit = () => {
+        addMethod({
+            title: titleInput,
+            input: inputInput,
+            output: outputInput,
+            what: whatInput,
+            how: howInput,
+            experiences: experiencesInput,
+            research: researchInput,
+        });
+    };
 
     return (
         <Flex direction="column" background="gray.100" p={12} rounded={6}>
@@ -29,7 +50,12 @@ const MethodInput = () => {
                 <Box>
                     <FormLabel>Title:</FormLabel>
                 </Box>
-                <Input placeholder="Title" variant="outline" mb={3} />
+                <Input
+                    placeholder="Title"
+                    variant="outline"
+                    mb={3}
+                    onChange={(event) => setTitleInput(event.target.value)}
+                />
                 <FormLabel
                     display="flex"
                     justifyContent="space-between"
@@ -45,7 +71,12 @@ const MethodInput = () => {
                         </PopoverContent>
                     </Popover>
                 </FormLabel>
-                <Input placeholder="Input" variant="outline" mb={3} />
+                <Input
+                    placeholder="Input"
+                    variant="outline"
+                    mb={3}
+                    onChange={(event) => setInputInput(event.target.value)}
+                />
                 <FormLabel
                     display="flex"
                     justifyContent="space-between"
@@ -61,7 +92,12 @@ const MethodInput = () => {
                         </PopoverContent>
                     </Popover>
                 </FormLabel>
-                <Input placeholder="Output" variant="outline" mb={3} />
+                <Input
+                    placeholder="Output"
+                    variant="outline"
+                    mb={3}
+                    onChange={(event) => setOutputInput(event.target.value)}
+                />
                 <FormLabel
                     display="flex"
                     justifyContent="space-between"
@@ -80,6 +116,7 @@ const MethodInput = () => {
                 <Textarea
                     placeholder="The HMW method creates a ..."
                     variant="outline"
+                    onChange={(event) => setWhatInput(event.target.value)}
                 ></Textarea>
                 <FormLabel
                     display="flex"
@@ -101,6 +138,7 @@ const MethodInput = () => {
                     placeholder="How the HMW method works is by ..."
                     variant="outline"
                     mb={3}
+                    onChange={(event) => setHowInput(event.target.value)}
                 ></Textarea>
                 <FormLabel
                     display="flex"
@@ -121,6 +159,9 @@ const MethodInput = () => {
                     placeholder="I have found the HMW method to be useful when ..."
                     variant="outline"
                     mb={3}
+                    onChange={(event) =>
+                        setExperiencesInput(event.target.value)
+                    }
                 ></Textarea>
                 <FormLabel
                     display="flex"
@@ -137,8 +178,13 @@ const MethodInput = () => {
                         </PopoverContent>
                     </Popover>
                 </FormLabel>
-                <Input placeholder="Links" variant="outline" mb={3} />
-                <Button>Submit</Button>
+                <Input
+                    placeholder="Links"
+                    variant="outline"
+                    mb={3}
+                    onChange={(event) => setResearchInput(event.target.value)}
+                />
+                <Button onClick={handleSubmit}>Submit</Button>
             </FormControl>
         </Flex>
     );
