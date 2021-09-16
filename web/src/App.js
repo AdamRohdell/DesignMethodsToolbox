@@ -7,7 +7,12 @@ import Home from "./views/home";
 function App() {
     return (
         <div className="App">
-            <Flex height="100vh" alignItems="center" justifyContent="center">
+            <Flex
+                height="100vh"
+                alignItems="center"
+                justifyContent="center"
+                overflow="auto"
+            >
                 <Home />
             </Flex>
         </div>

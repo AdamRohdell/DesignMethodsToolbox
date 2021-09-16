@@ -1,12 +1,17 @@
 import { Button } from "@chakra-ui/button";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import DesignPhaseCard from "../components/designphase-card";
 import HomeDrawer from "../components/home-drawer";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 import { MethodContext } from "../contexts/method-context";
+import DesignPhase from "./design-phase";
+import { Flex } from "@chakra-ui/layout";
+import { Link, Element, scroller, animationScroll } from "react-scroll";
+import { animateScroll } from "react-scroll/modules";
 
 const Home = () => {
     const { methods } = useContext(MethodContext);
+    const phaseOneRef = useRef(null);
     const { currentDesignPhase } = useContext(DesignPhaseContext);
 
     const [open, setOpen] = useState(false);
@@ -19,19 +24,39 @@ const Home = () => {
         setOpen(false);
     };
 
-    if (currentDesignPhase != null) {
-    } else {
-        return (
-            <>
-                <Button onClick={onOpen}>Open</Button>
-                <HomeDrawer open={open} onClose={onClose} />
+    const ScrollToPhaseOne = () => {
+        console.log("memes");
 
+        animateScroll.scrollTo("memes");
+    };
+
+    return (
+        <div>
+            <Flex
+                display="flex"
+                justifyContent="space-between"
+                mb={800}
+                mt={800}
+            >
+                <Button onClick={onOpen}></Button>
+                <Link
+                    to="phase1"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    offset={-10}
+                >
+                    Memes
+                </Link>
+
+                <HomeDrawer open={open} onClose={onClose} />
                 <DesignPhaseCard
                     title={"Design Phase One"}
                     description={
                         "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
                     }
                     phase={1}
+                    scrollFunction={ScrollToPhaseOne}
                 />
                 <DesignPhaseCard
                     title={"Design Phase Two"}
@@ -61,9 +86,12 @@ const Home = () => {
                     }
                     phase={5}
                 />
-            </>
-        );
-    }
+            </Flex>
+            <div id="phase1">
+                <DesignPhase />;
+            </div>
+        </div>
+    );
 };
 
 export default Home;

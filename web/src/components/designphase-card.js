@@ -14,7 +14,12 @@ import { useContext, useState } from "react";
 import DesignPhase from "../views/design-phase";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 
-export default function DesignPhaseCard({ title, description, phase }) {
+export default function DesignPhaseCard({
+    title,
+    description,
+    phase,
+    scrollFunction,
+}) {
     const { setCurrentDesignPhase } = useContext(DesignPhaseContext);
 
     return (
@@ -26,6 +31,8 @@ export default function DesignPhaseCard({ title, description, phase }) {
                 boxShadow={"2xl"}
                 rounded={"md"}
                 overflow={"hidden"}
+                ml={5}
+                mr={5}
             >
                 <Stack
                     textAlign={"center"}
@@ -41,7 +48,10 @@ export default function DesignPhaseCard({ title, description, phase }) {
                         <Text
                             fontSize={"6xl"}
                             fontWeight={800}
-                            onClick={() => setCurrentDesignPhase(phase)}
+                            onClick={() => {
+                                setCurrentDesignPhase(phase);
+                                scrollFunction();
+                            }}
                         >
                             {title}
                         </Text>
