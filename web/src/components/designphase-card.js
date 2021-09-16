@@ -8,9 +8,10 @@ import {
     ListIcon,
     Button,
     useColorModeValue,
+    textDecoration,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DesignPhase from "../views/design-phase";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 
@@ -21,6 +22,20 @@ export default function DesignPhaseCard({
     scrollFunction,
 }) {
     const { setCurrentDesignPhase } = useContext(DesignPhaseContext);
+    const [hover, setHover] = useState(false);
+    const [linkStyle, setLinkStyle] = useState(null);
+
+    const toggleHover = () => {
+        setHover(!hover);
+    };
+
+    useEffect(() => {
+        if (hover) {
+            setLinkStyle({ textDecoration: "underline", cursor: "pointer" });
+        } else {
+            setLinkStyle({});
+        }
+    }, [hover]);
 
     return (
         <Center py={6}>
@@ -50,8 +65,11 @@ export default function DesignPhaseCard({
                             fontWeight={800}
                             onClick={() => {
                                 setCurrentDesignPhase(phase);
-                                scrollFunction();
+                                scrollFunction(phase);
                             }}
+                            onMouseEnter={toggleHover}
+                            onMouseLeave={toggleHover}
+                            style={linkStyle}
                         >
                             {title}
                         </Text>
