@@ -5,17 +5,25 @@ import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import MethodProvider from "./contexts/method-context";
 import DesignPhaseProvider from "./contexts/designphase-context";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+    uri: "http://localhost:5000/graphql",
+    cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
-    <React.StrictMode>
-        <ChakraProvider>
-            <MethodProvider>
-                <DesignPhaseProvider>
-                    <App />
-                </DesignPhaseProvider>
-            </MethodProvider>
-        </ChakraProvider>
-    </React.StrictMode>,
+    <ApolloProvider client={client}>
+        <React.StrictMode>
+            <ChakraProvider>
+                <MethodProvider>
+                    <DesignPhaseProvider>
+                        <App />
+                    </DesignPhaseProvider>
+                </MethodProvider>
+            </ChakraProvider>
+        </React.StrictMode>
+    </ApolloProvider>,
     document.getElementById("root")
 );
 

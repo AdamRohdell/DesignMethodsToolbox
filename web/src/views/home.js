@@ -1,17 +1,15 @@
 import { Button } from "@chakra-ui/button";
-import { useContext, useState, useRef } from "react";
+import { useContext, useState } from "react";
 import DesignPhaseCard from "../components/designphase-card";
 import HomeDrawer from "../components/home-drawer";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 import { MethodContext } from "../contexts/method-context";
 import DesignPhase from "./design-phase";
 import { Flex } from "@chakra-ui/layout";
-import { Link, Element, scroller, animationScroll } from "react-scroll";
-import { animateScroll as scroll } from "react-scroll/modules";
+import { scroller } from "react-scroll";
 
 const Home = () => {
     const { methods } = useContext(MethodContext);
-    const phaseOneRef = useRef(null);
     const { currentDesignPhase } = useContext(DesignPhaseContext);
 
     const [open, setOpen] = useState(false);
@@ -22,12 +20,6 @@ const Home = () => {
 
     const onClose = () => {
         setOpen(false);
-    };
-
-    const scrollToTop = () => {
-        console.log("memes");
-
-        scroll.scrollToTop();
     };
 
     const scrollToPhase = (phase) => {
