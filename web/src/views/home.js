@@ -5,22 +5,15 @@ import HomeDrawer from "../components/home-drawer";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 import { MethodContext } from "../contexts/method-context";
 import DesignPhase from "./design-phase";
-import { Flex } from "@chakra-ui/layout";
+import { Flex, Heading } from "@chakra-ui/layout";
 import { scroller } from "react-scroll";
+import Header from "../components/header";
 
 const Home = () => {
     const { methods } = useContext(MethodContext);
     const { currentDesignPhase } = useContext(DesignPhaseContext);
 
     const [open, setOpen] = useState(false);
-
-    const onOpen = () => {
-        setOpen(true);
-    };
-
-    const onClose = () => {
-        setOpen(false);
-    };
 
     const scrollToPhase = (phase) => {
         scroller.scrollTo("phase" + phase, {
@@ -32,9 +25,8 @@ const Home = () => {
 
     return (
         <div>
+            <Header />
             <Flex display="flex" justifyContent="space-between" mb={800}>
-                <Button onClick={onOpen}></Button>
-                <HomeDrawer open={open} onClose={onClose} />
                 <DesignPhaseCard
                     title={"Design Phase One"}
                     description={
