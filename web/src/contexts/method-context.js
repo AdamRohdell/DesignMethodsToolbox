@@ -19,7 +19,6 @@ const ADD_METHOD = gql`
     mutation ($mutation: MethodInput) {
         createMethod(method: $mutation) {
             title
-            _id
         }
     }
 `;
@@ -27,9 +26,7 @@ const ADD_METHOD = gql`
 const MethodProvider = ({ children }) => {
     const [methods, setMethods] = useState([]);
     const { loading, data } = useQuery(GET_METHODS);
-    const [addMethodToDatabase, addMethodData] = useMutation(ADD_METHOD, {
-        refetchQueries: [GET_METHODS],
-    });
+    const [addMethodToDatabase, addMethodData] = useMutation(ADD_METHOD);
 
     useEffect(() => {
         if (data != null) {
@@ -38,9 +35,7 @@ const MethodProvider = ({ children }) => {
     }, [data]);
 
     const addMethod = (method) => {
-        addMethodToDatabase(method).then(() =>
-            console.log("Method added successfully")
-        );
+        addMethodToDatabase({ variables: { mutation: method } });
     };
 
     return (
