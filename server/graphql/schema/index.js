@@ -14,6 +14,21 @@ module.exports = buildSchema(`
     createdAt: String!
   }
 
+  type Source {
+    _id: ID!
+    title: String!
+    author: String!
+    year: String!
+    url: String!
+  }
+
+  input SourceInput {
+    title: String!
+    author: String!
+    year: String!
+    url: String!
+  }
+
 
   input MethodInput {
     title: String!
@@ -27,10 +42,12 @@ module.exports = buildSchema(`
 
   type Query {
     methods:[Method!]
+    sources:[Source!]
   }
 
   type Mutation {
     createMethod(method:MethodInput): Method
+    addSource(source:SourceInput): Source
   }
 
   schema {

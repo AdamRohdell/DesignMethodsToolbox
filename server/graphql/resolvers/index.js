@@ -23,6 +23,24 @@ module.exports = {
         }
     },
 
+    sources: async () => {
+        try {
+            const sourcesFetched = await Source.find();
+            return sourcesFetched.map((source) => {
+                return {
+                    ...source._doc,
+                    _id: source.id,
+                    title: source.title,
+                    author: source.author,
+                    year: source.year,
+                    url: source.url,
+                };
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
+
     createMethod: async (args) => {
         try {
             const { title, input, output, what, how, experiences, research } =
@@ -36,8 +54,24 @@ module.exports = {
                 experiences,
                 research,
             });
+
             const newMethod = await method.save();
             return { ...newMethod._doc, _id: newMethod.id };
+        } catch (error) {
+            throw error;
+        }
+    },
+    addSource: async (args) => {
+        try {
+            const { title, author, year, url } = args.source;
+            const source = new Source({
+                title,
+                author,
+                year,
+                url,
+            });
+            const newSource = await source.save();
+            return { ...newSource._doc, _id: newSource.id };
         } catch (error) {
             throw error;
         }

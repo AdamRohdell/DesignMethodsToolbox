@@ -14,6 +14,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import DesignPhase from "../views/design-phase";
 import { DesignPhaseContext } from "../contexts/designphase-context";
+import { SourcesContext } from "../contexts/sources-context";
 
 export default function DesignPhaseCard({
     title,
@@ -22,6 +23,8 @@ export default function DesignPhaseCard({
     scrollFunction,
 }) {
     const { setCurrentDesignPhase } = useContext(DesignPhaseContext);
+    const { sources } = useContext(SourcesContext);
+
     const [hover, setHover] = useState(false);
     const [linkStyle, setLinkStyle] = useState(null);
 
@@ -36,6 +39,8 @@ export default function DesignPhaseCard({
             setLinkStyle({});
         }
     }, [hover]);
+
+    const TextWithSources = (text) => {};
 
     return (
         <Center py={6}>
@@ -71,7 +76,7 @@ export default function DesignPhaseCard({
                             onMouseLeave={toggleHover}
                             style={linkStyle}
                         >
-                            {title}
+                            {TextWithSources(title)}
                         </Text>
                     </Stack>
                 </Stack>

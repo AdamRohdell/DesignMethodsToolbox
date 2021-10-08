@@ -35,6 +35,7 @@ const Home = () => {
                     phase={1}
                     scrollFunction={scrollToPhase}
                 />
+
                 <DesignPhaseCard
                     title={"Design Phase Two"}
                     description={

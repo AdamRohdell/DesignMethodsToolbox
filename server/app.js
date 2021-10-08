@@ -6,6 +6,7 @@ const expressPlayground =
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolvers = require("./graphql/resolvers");
 const cors = require("cors");
+require("dotenv").config();
 
 const port = process.env.PORT || 5000;
 
@@ -20,6 +21,8 @@ app.use(
         graphiql: true,
     })
 );
+console.log(process.env.MONGO_USER);
+
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@designtoolbox.pjrnb.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose
