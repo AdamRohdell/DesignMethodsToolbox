@@ -30,7 +30,7 @@ const Home = () => {
                 <DesignPhaseCard
                     title={"Design Phase One"}
                     description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
+                        "Design phase one focuses on understanding affected users and gaining empathy for users of a (Bla bla) specific context (Job Stories)."
                     }
                     phase={1}
                     scrollFunction={scrollToPhase}

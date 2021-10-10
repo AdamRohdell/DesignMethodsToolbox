@@ -40,7 +40,87 @@ export default function DesignPhaseCard({
         }
     }, [hover]);
 
-    const TextWithSources = (text) => {};
+    const TextWithSources = (text) => {
+        let words = text.split(" ");
+
+        let regExp = /\(([^)]+)\)/;
+        let matches = regExp.exec(text);
+        let sourcesInText = [];
+        let citations = [];
+
+        let newText = text;
+
+        //matches[1] contains the value between the parentheses
+        const recursiveRegExCheck = () => {
+            if (matches) {
+                newText = newText.replace(matches[0], "");
+                sourcesInText.push(matches[1]);
+                matches = regExp.exec(newText);
+                recursiveRegExCheck();
+            }
+        };
+
+        recursiveRegExCheck();
+
+        if (!sources) return text;
+
+        let realSources = [];
+
+        sources.forEach((source) => {
+            sourcesInText.forEach((word) => {
+                if (word.includes(source.title)) {
+                    citations.push(
+                        <cite>
+                            <a href={source.url}>
+                                {source.author}, {source.year}
+                            </a>
+                        </cite>
+                    );
+                    realSources.push(word);
+                }
+            });
+            citations.push("");
+        });
+
+        sourcesInText = sourcesInText.filter((x) => realSources.includes(x));
+
+        let textParts = [];
+
+        const recursiveFunction = (text, source) => {
+            //    if (text.indexOf(source) === -1) return;
+
+            textParts.push(text.slice(0, text.indexOf(source)));
+
+            if (sourcesInText.indexOf(source) == sourcesInText.length - 1) {
+                console.log(source);
+
+                textParts.push(
+                    text.slice(text.indexOf(source) + source.length)
+                );
+            }
+
+            if (sourcesInText.indexOf(source) != sourcesInText.length - 1) {
+                recursiveFunction(
+                    text.slice(text.indexOf(source) + source.length),
+                    sourcesInText[sourcesInText.indexOf(source) + 1]
+                );
+            } else {
+                return;
+            }
+        };
+
+        recursiveFunction(text, sourcesInText[0]);
+
+        console.log(textParts);
+        console.log(citations);
+
+        return textParts.map((part, index) => (
+            <p>
+                {part}
+                {citations[index]}
+            </p>
+        ));
+    };
 
     return (
         <Center py={6}>
@@ -76,7 +156,7 @@ export default function DesignPhaseCard({
                             onMouseLeave={toggleHover}
                             style={linkStyle}
                         >
-                            {TextWithSources(title)}
+                            {title}
                         </Text>
                     </Stack>
                 </Stack>
@@ -87,7 +167,7 @@ export default function DesignPhaseCard({
                     py={10}
                 >
                     <Text fontSize={18} fontWeight={400}>
-                        {description}
+                        {TextWithSources(description)}
                     </Text>
                 </Box>
             </Box>
