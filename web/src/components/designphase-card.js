@@ -84,6 +84,8 @@ export default function DesignPhaseCard({
 
         sourcesInText = sourcesInText.filter((x) => realSources.includes(x));
 
+        if (sourcesInText.length <= 0) return text;
+
         let textParts = [];
 
         const recursiveFunction = (text, source) => {
@@ -111,15 +113,14 @@ export default function DesignPhaseCard({
 
         recursiveFunction(text, sourcesInText[0]);
 
-        console.log(textParts);
-        console.log(citations);
+        let finalList = [];
 
-        return textParts.map((part, index) => (
-            <p>
-                {part}
-                {citations[index]}
-            </p>
-        ));
+        textParts = textParts.forEach((part, index) => {
+            finalList.push(part);
+            finalList.push(citations[index]);
+        });
+
+        return <p>{finalList}</p>;
     };
 
     return (

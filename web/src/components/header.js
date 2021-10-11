@@ -23,6 +23,7 @@ const Header = () => {
             padding={6}
             bg="teal.500"
             color="white"
+            sx={{ position: "-webkit-sticky", position: "sticky", top: "0" }}
         >
             <Button onClick={onOpen} mr={30} backgroundColor="green">
                 <HamburgerIcon />

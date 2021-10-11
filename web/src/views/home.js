@@ -8,6 +8,7 @@ import DesignPhase from "./design-phase";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { scroller } from "react-scroll";
 import Header from "../components/header";
+import Methods from "./methods";
 
 const Home = () => {
     const { methods } = useContext(MethodContext);
@@ -74,6 +75,7 @@ const Home = () => {
             <DesignPhase id="phase3" />
             <DesignPhase id="phase4" />
             <DesignPhase id="phase5" />
+            <Methods id="methods" />
         </div>
     );
 };
