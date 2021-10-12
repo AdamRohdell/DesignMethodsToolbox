@@ -1,14 +1,16 @@
 import { Button } from "@chakra-ui/button";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import DesignPhaseCard from "../components/designphase-card";
 import HomeDrawer from "../components/home-drawer";
 import { DesignPhaseContext } from "../contexts/designphase-context";
 import { MethodContext } from "../contexts/method-context";
 import DesignPhase from "./design-phase";
-import { Flex, Heading } from "@chakra-ui/layout";
-import { scroller } from "react-scroll";
+import { Center, Flex, Heading } from "@chakra-ui/layout";
+import { Text, Box } from "@chakra-ui/react";
+import { Link, scroller } from "react-scroll";
 import Header from "../components/header";
 import Methods from "./methods";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const Home = () => {
     const { methods } = useContext(MethodContext);
@@ -16,66 +18,68 @@ const Home = () => {
 
     const [open, setOpen] = useState(false);
 
-    const scrollToPhase = (phase) => {
-        scroller.scrollTo("phase" + phase, {
-            duration: 800,
-            delay: 0,
-            smooth: "easeInOutQuart",
-        });
+    const [hover, setHover] = useState(false);
+    const [linkStyle, setLinkStyle] = useState(null);
+
+    useEffect(() => {
+        if (hover) {
+            setLinkStyle({ textDecoration: "underline", cursor: "pointer" });
+        } else {
+            setLinkStyle({});
+        }
+    }, [hover]);
+
+    const toggleHover = () => {
+        setHover(!hover);
     };
 
     return (
         <div>
             <Header />
-            <Flex display="flex" justifyContent="space-between" mb={800}>
-                <DesignPhaseCard
-                    title={"Design Phase One"}
-                    description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a (Bla bla) specific context (Job Stories)."
-                    }
-                    phase={1}
-                    scrollFunction={scrollToPhase}
-                />
+            <Center>
+                <Box>
+                    <Text fontSize={"9xl"} mb={200} mt={200}>
+                        A Designers Toolbox
+                    </Text>
+                    <Text
+                        fontSize={"5xl"}
+                        align="center"
+                        style={{ color: "rgba(0,0,0, 0.5)" }}
+                        onClick={() =>
+                            scroller.scrollTo("methods", {
+                                duration: 1000,
+                                delay: 0,
+                                smooth: "easeInOutQuart",
+                                offset: -150,
+                            })
+                        }
+                        onMouseEnter={toggleHover}
+                        onMouseLeave={toggleHover}
+                    >
+                        Browse methods
+                    </Text>
+                    <Center>
+                        <ChevronDownIcon
+                            align="center"
+                            w={20}
+                            h={20}
+                            mb={600}
+                            onClick={() =>
+                                scroller.scrollTo("methods", {
+                                    duration: 1000,
+                                    delay: 0,
+                                    smooth: "easeInOutQuart",
+                                })
+                            }
+                            onMouseEnter={toggleHover}
+                            onMouseLeave={toggleHover}
+                            style={{ color: "rgba(0,0,0, 0.5)" }}
+                        ></ChevronDownIcon>
+                    </Center>
+                </Box>
+            </Center>
 
-                <DesignPhaseCard
-                    title={"Design Phase Two"}
-                    description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
-                    }
-                    phase={2}
-                    scrollFunction={scrollToPhase}
-                />
-                <DesignPhaseCard
-                    title={"Design Phase Three"}
-                    description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
-                    }
-                    phase={3}
-                    scrollFunction={scrollToPhase}
-                />
-                <DesignPhaseCard
-                    title={"Design Phase Four"}
-                    description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
-                    }
-                    phase={4}
-                    scrollFunction={scrollToPhase}
-                />
-                <DesignPhaseCard
-                    title={"Design Phase Five"}
-                    description={
-                        "Design phase one focuses on understanding affected users and gaining empathy for users of a specific context."
-                    }
-                    phase={5}
-                    scrollFunction={scrollToPhase}
-                />
-            </Flex>
-            <DesignPhase id="phase1" />
-            <DesignPhase id="phase2" />
-            <DesignPhase id="phase3" />
-            <DesignPhase id="phase4" />
-            <DesignPhase id="phase5" />
-            <Methods id="methods" />
+            <Methods id="methods1" />
         </div>
     );
 };

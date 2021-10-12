@@ -29,7 +29,6 @@ const HomeDrawer = ({ onClose, open }) => {
                             <DrawerMethod method={method} />
                         ))}
                     </List>
-                    <a>Add methods here</a>
                 </DrawerBody>
                 <DrawerFooter>
                     <Button variant="outline" onClick={onClose}>

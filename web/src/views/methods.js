@@ -7,7 +7,7 @@ const Methods = () => {
     const { methods } = useContext(MethodContext);
 
     return (
-        <Stack spacing={"15vh"}>
+        <Stack spacing={"15vh"} id="methods">
             {methods.map((method) => {
                 return (
                     <>

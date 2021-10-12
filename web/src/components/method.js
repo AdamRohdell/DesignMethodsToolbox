@@ -31,8 +31,6 @@ const Method = ({ method }) => {
 
         recursiveRegExCheck();
 
-        console.log(sourcesInText);
-
         if (!sources) return text;
 
         let realSources = [];
@@ -60,7 +58,10 @@ const Method = ({ method }) => {
             x.index = index;
         });
 
-        if (sourcesInText.length <= 0) return text;
+        if (sourcesInText.length <= 0) {
+            //   console.log(text.split("\n"));
+            return text;
+        }
 
         let textParts = [];
 
@@ -101,6 +102,27 @@ const Method = ({ method }) => {
             }
         });
 
+        /*   const f = (string) => {
+            let x = string.replace("\\n", "");
+
+            console.log(x);
+            newFinalList.push(<p>{x}</p>);
+        };
+
+        const fix = (part) => {
+            let x = part.split("\n");
+
+            x.forEach((element) => f(element));
+        };
+
+        finalList.forEach((part) => {
+            if (typeof part === "string" && part !== "(" && part !== ")") {
+                fix(part);
+            } else {
+                newFinalList.push(part);
+            }
+        });*/
+
         return <p>{finalList}</p>;
     };
 
@@ -116,7 +138,9 @@ const Method = ({ method }) => {
                     <Text fontSize="2xl">What It Does</Text>
                     <p>{TextWithSources(method.what)}</p>
                     <Text fontSize="2xl">How It Works</Text>
-                    <p>{TextWithSources(method.how)}</p>
+                    <p style={{ whiteSpace: "pre-wrap" }}>
+                        {TextWithSources(method.how)}
+                    </p>
                     <Text fontSize="2xl">My Experiences</Text>
                     <p>{TextWithSources(method.experiences)}</p>
                     <Text fontSize="2xl">Useful Links / Research</Text>
