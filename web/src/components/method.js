@@ -128,7 +128,7 @@ const Method = ({ method }) => {
 
     return (
         <Center>
-            <Container maxW="container.xl">
+            <Container maxW="container.xl" id={method.title}>
                 <Stack spacing={"2"}>
                     <Text fontSize="3xl">{method.title}</Text>
                     <Text fontSize="2xl">Input</Text>

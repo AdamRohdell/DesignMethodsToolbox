@@ -26,7 +26,7 @@ const HomeDrawer = ({ onClose, open }) => {
                 <DrawerBody>
                     <List>
                         {methods.map((method) => (
-                            <DrawerMethod method={method} />
+                            <DrawerMethod method={method} onClose={onClose} />
                         ))}
                     </List>
                 </DrawerBody>
